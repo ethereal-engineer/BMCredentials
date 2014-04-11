@@ -1,7 +1,10 @@
-pod "BMCredentials", :path => "../"
 
-target "Demo" do
+target :CredentialsDemo do
+	pod "BMCredentials", 					:path => "../"
 end
 
-target "DemoTests" do
+target :CredentialsDemoTests do
+	pod "BMCredentials", 					:path => "../"
+	pod 'Specta',                         	'~> 0.2.1'
+	pod 'OCHamcrest',                     	'~> 3.0.0'
 end

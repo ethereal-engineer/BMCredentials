@@ -1,0 +1,20 @@
+PODS:
+  - BMCredentials (0.1.0)
+  - OCHamcrest (3.0.1)
+  - Specta (0.2.1)
+
+DEPENDENCIES:
+  - BMCredentials (from `../`)
+  - OCHamcrest (~> 3.0.0)
+  - Specta (~> 0.2.1)
+
+EXTERNAL SOURCES:
+  BMCredentials:
+    :path: ../
+
+SPEC CHECKSUMS:
+  BMCredentials: 73d7b71078fdf8d628f581c982670be9326785a6
+  OCHamcrest: 782c52ae8c673e5d6060a65005cfd26d20d519ba
+  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
+
+COCOAPODS: 0.31.1

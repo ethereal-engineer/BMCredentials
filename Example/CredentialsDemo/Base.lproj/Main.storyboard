@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="CRDViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uti-i7-Hl3">
+                                <rect key="frame" x="89" y="124" width="142" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Load From Keychain">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wYZ-I4-Gxn"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" borderStyle="roundedRect" placeholder="Username (required)" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8Aq-8N-d6E">
+                                <rect key="frame" x="20" y="194" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="i2r-CK-Wv2"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="changeit" borderStyle="roundedRect" placeholder="Password (cleartext, required)" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="UOj-Qd-iPg">
+                                <rect key="frame" x="20" y="232" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="dOO-Fe-9kG"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://www.apple.com:80" borderStyle="roundedRect" placeholder="Valid URL (required)" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="KKq-4h-8w8">
+                                <rect key="frame" x="20" y="270" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="wsR-jM-LYN"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Mh-C6-eOD">
+                                <rect key="frame" x="99" y="340" width="122" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save To Keychain">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Z8z-ns-Vpn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYY-g8-oZo">
+                                <rect key="frame" x="78" y="378" width="164" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Remove From Keychain">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="00C-Bk-mHM"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h4i-8a-6iw">
+                                <rect key="frame" x="251" y="492" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="cloudChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="jp6-4P-dNl"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Cloud Syncing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuG-AY-2au">
+                                <rect key="frame" x="20" y="497" width="170" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KKq-4h-8w8" secondAttribute="trailing" constant="20" id="1Ju-P3-5UK"/>
+                            <constraint firstItem="8Aq-8N-d6E" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="61G-cK-BJg"/>
+                            <constraint firstAttribute="trailing" secondItem="h4i-8a-6iw" secondAttribute="trailing" constant="20" id="7Qd-sy-kfb"/>
+                            <constraint firstAttribute="centerY" secondItem="UOj-Qd-iPg" secondAttribute="centerY" constant="37" id="9il-Xl-73t"/>
+                            <constraint firstAttribute="trailing" secondItem="8Aq-8N-d6E" secondAttribute="trailing" constant="20" id="AKz-h5-Ljb"/>
+                            <constraint firstAttribute="centerX" secondItem="iYY-g8-oZo" secondAttribute="centerX" id="HPO-Th-fWk"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OuG-AY-2au" secondAttribute="bottom" constant="50" id="Lwf-bd-Ynv"/>
+                            <constraint firstAttribute="centerX" secondItem="4Mh-C6-eOD" secondAttribute="centerX" id="MKG-YB-yvA"/>
+                            <constraint firstItem="8Aq-8N-d6E" firstAttribute="top" secondItem="Uti-i7-Hl3" secondAttribute="bottom" constant="40" id="OYn-yz-pvx"/>
+                            <constraint firstItem="UOj-Qd-iPg" firstAttribute="top" secondItem="8Aq-8N-d6E" secondAttribute="bottom" constant="8" id="Ria-lB-mSI"/>
+                            <constraint firstItem="KKq-4h-8w8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="SnG-kY-IVy"/>
+                            <constraint firstItem="h4i-8a-6iw" firstAttribute="leading" secondItem="OuG-AY-2au" secondAttribute="trailing" constant="61" id="WOt-cp-6VO"/>
+                            <constraint firstItem="4Mh-C6-eOD" firstAttribute="top" secondItem="KKq-4h-8w8" secondAttribute="bottom" constant="40" id="XAu-9d-Ia4"/>
+                            <constraint firstItem="KKq-4h-8w8" firstAttribute="top" secondItem="UOj-Qd-iPg" secondAttribute="bottom" constant="8" id="ZoN-cw-EXA"/>
+                            <constraint firstItem="UOj-Qd-iPg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="aWG-YJ-hTJ"/>
+                            <constraint firstAttribute="centerX" secondItem="Uti-i7-Hl3" secondAttribute="centerX" id="aZu-kM-pdj"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="h4i-8a-6iw" secondAttribute="bottom" constant="45" id="bCK-6l-vgl"/>
+                            <constraint firstItem="OuG-AY-2au" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="cV2-yq-IbM"/>
+                            <constraint firstItem="iYY-g8-oZo" firstAttribute="top" secondItem="4Mh-C6-eOD" secondAttribute="bottom" constant="8" id="mfr-kM-Ja8"/>
+                            <constraint firstAttribute="centerX" secondItem="UOj-Qd-iPg" secondAttribute="centerX" id="vlK-3M-qhS"/>
+                            <constraint firstAttribute="trailing" secondItem="UOj-Qd-iPg" secondAttribute="trailing" constant="20" id="zCZ-iE-dAv"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="MOD-GG-p6u" appends="YES" id="DFv-1W-0hv"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="passwordField" destination="UOj-Qd-iPg" id="YYa-dk-Ifj"/>
+                        <outlet property="urlField" destination="KKq-4h-8w8" id="bJx-DM-jnj"/>
+                        <outlet property="usernameField" destination="8Aq-8N-d6E" id="NKG-5i-iwQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="MOD-GG-p6u">
+                    <connections>
+                        <action selector="viewTapped:" destination="vXZ-lx-hvc" id="fS0-6S-ewr"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
