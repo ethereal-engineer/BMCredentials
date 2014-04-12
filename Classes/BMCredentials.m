@@ -1,15 +1,36 @@
+//
+//  BMCredentials.m
+//
+//  Created by Adam Iredale on 11/04/2014.
+//  Copyright (c) 2014 Bionic Monocle Pty Ltd. All rights reserved.
+//
 
 #import "BMCredentials.h"
 
+/**
+ *  Error domain
+ */
 NSString *const BMCredentialsErrorDomain = @"BMCredentialsErrorDomain";
-
+/**
+ *  Label used to store and retrieve default credentials
+ */
 static NSString *const kDefaultCredentialsKey = @"com.bionicmonocle.credentials.default";
-
+/**
+ *  Comment used to keep track of all BMCredentials items in the keychain
+ */
 static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item";
+
+/**
+ *  WWDC 2013's Session 709 was relied on heavily for creating this, as well as the dev forums
+ */
 
 @implementation BMCredentials
 
 #pragma mark - NSObject
+
+/**
+ *  Basic equality testing
+ */
 
 - (BOOL)isEqual:(id)object
 {
@@ -32,6 +53,16 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
 }
 
 #pragma mark - Public
+
+/**
+ *  Write the credentials to the iOS Keychain. If a duplicate item already exists, update it using the
+ *  correct forward-compatible methods
+ *
+ *  @param key   A unique key for storing this credentials set
+ *  @param error Pointer to an error variable. All errors return error codes found in Security.framework
+ *
+ *  @return YES if successful. NO if not - an error will be present if NO
+ */
 
 - (BOOL)storeWithKey:(NSString *)key error:(NSError * __autoreleasing *)error
 {
@@ -150,6 +181,15 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
     }
     return YES;
 }
+
+/**
+ *  Retrieve and load the credentials from the iOS Keychain into the BMCredentials object
+ *
+ *  @param key   A unique key for retrieving this credentials set
+ *  @param error Pointer to an error variable. All errors return error codes found in Security.framework
+ *
+ *  @return YES if successful, NO if not - an error will be present if NO
+ */
 
 - (BOOL)loadWithKey:(NSString *)key error:(NSError * __autoreleasing *)error
 {
@@ -277,6 +317,9 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
 
 + (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error
 {
+    
+    // Remove all matching keychain items that have the BMCredentials tag
+    
     NSDictionary *query =
     @{
       (__bridge id)kSecClass                : (__bridge id)kSecClassInternetPassword,
