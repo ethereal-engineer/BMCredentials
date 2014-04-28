@@ -102,8 +102,8 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
     NSDictionary *prepayload =
     @{
       (__bridge id)kSecAttrAccessible       : (__bridge id)(_enableBackgroundAccess ?
-                                                            kSecAttrAccessibleWhenUnlocked :
-                                                            kSecAttrAccessibleAfterFirstUnlock),
+                                                            kSecAttrAccessibleAfterFirstUnlock :
+                                                            kSecAttrAccessibleWhenUnlocked),
       (__bridge id)kSecAttrComment          : kBMCredentialsTag,
       (__bridge id)kSecAttrAccount          : _username,
       (__bridge id)kSecValueData            : secret,
