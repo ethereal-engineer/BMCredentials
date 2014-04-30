@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = "BMCredentials"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "Only make your users sign in once for all their devices. Conveniently and securely stores user credentials and syncs with iCloud Keychain."
   s.homepage         = "https://github.com/iosengineer/BMCredentials"
   s.license          = 'MIT'
-  s.author           = { "Adam Iredale" => "adam@bionicmonocle.com" }
+  s.author           = { "Adam Iredale" => "@iosengineer" }
   s.source           = { :git => "https://github.com/iosengineer/BMCredentials.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/iosengineer'
 
