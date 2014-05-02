@@ -32,7 +32,7 @@
 - (IBAction)loadTapped:(id)sender
 {
     NSError *error = nil;
-    BMCredentials *credentials = [BMCredentials defaultCredentials:&error];
+    BMCredentials *credentials = [_credentialsManager defaultCredentials:&error];
     if (!credentials)
     {
         if (error.code == errSecItemNotFound)
@@ -74,7 +74,7 @@
         return;
     }
     
-    if (![BMCredentials setDefaultCredentials:credentials error:&error])
+    if (![_credentialsManager setDefaultCredentials:credentials error:&error])
     {
         [self alertWithMessage:@"Something went wrong saving your credentials" andError:error];
     }
@@ -87,7 +87,7 @@
 - (IBAction)removeTapped:(id)sender
 {
     NSError *error = nil;
-    if (![BMCredentials removeDefaultCredentials:&error])
+    if (![_credentialsManager removeDefaultCredentials:&error])
     {
         [self alertWithMessage:@"Something went wrong removing your credentials" andError:error];
     }

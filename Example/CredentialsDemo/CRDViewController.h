@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BMCredentialsManager;
+
 @interface CRDViewController : UIViewController <UITextFieldDelegate>
+
+@property (nonatomic, strong) BMCredentialsManager *credentialsManager;
 
 @end

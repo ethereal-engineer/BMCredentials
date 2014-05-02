@@ -8,11 +8,24 @@
 
 #import "CRDAppDelegate.h"
 
+#pragma mark - View Controllers
+
+#import "CRDViewController.h"
+
+#pragma mark - Pod
+
+#import <BMCredentials/BMCredentials.h>
+
 @implementation CRDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    CRDViewController *viewController = (id)self.window.rootViewController;
+    // For better dependancy injection, set the view controller's BMCredentialsManager object
+    viewController.credentialsManager = [BMCredentialsManager sharedInstance];
+    
     return YES;
 }
 							

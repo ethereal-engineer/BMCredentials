@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BMCredentials"
-  s.version          = "1.0.1"
+  s.version          = "1.0.2"
   s.summary          = "Only make your users sign in once for all their devices. Conveniently and securely stores user credentials and syncs with iCloud Keychain."
   s.homepage         = "https://github.com/iosengineer/BMCredentials"
   s.license          = 'MIT'

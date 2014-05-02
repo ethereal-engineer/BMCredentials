@@ -260,6 +260,58 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
 
 + (instancetype)credentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error
 {
+    return [[BMCredentialsManager sharedInstance] credentialsForKey:key error:error];
+}
+
++ (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] setCredentials:credentials forKey:key error:error];
+}
+
++ (instancetype)defaultCredentials:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] defaultCredentials:error];
+}
+
++ (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] setDefaultCredentials:credentials error:error];
+}
+
++ (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] removeCredentialsForKey:key error:error];
+}
+
++ (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] removeAllCredentials:error];
+}
+
++ (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error
+{
+    return [[BMCredentialsManager sharedInstance] removeCredentialsForKey:kDefaultCredentialsKey error:error];
+}
+
+@end
+
+/**
+ *  @name BMCredentialsManager
+ */
+
+/**
+ *  Shared Instance Variable
+ */
+static const BMCredentialsManager *_gBMCredentialsManager = nil;
+
+@implementation BMCredentialsManager
+
+#pragma mark - Helpers
+
+#pragma mark - Public Methods
+
+- (BMCredentials *)credentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error
+{
     BMCredentials *credentials = [[BMCredentials alloc] init];
     if ([credentials loadWithKey:key error:error])
     {
@@ -271,22 +323,22 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
     }
 }
 
-+ (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error
+- (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error
 {
     return [credentials storeWithKey:key error:error];
 }
 
-+ (instancetype)defaultCredentials:(NSError * __autoreleasing *)error
+- (BMCredentials *)defaultCredentials:(NSError * __autoreleasing *)error
 {
     return [self credentialsForKey:kDefaultCredentialsKey error:error];
 }
 
-+ (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error
+- (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error
 {
     return [credentials storeWithKey:kDefaultCredentialsKey error:error];
 }
 
-+ (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error
+- (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error
 {
     NSDictionary *query =
     @{
@@ -315,7 +367,7 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
     }
 }
 
-+ (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error
+- (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error
 {
     
     // Remove all matching keychain items that have the BMCredentials tag
@@ -346,9 +398,21 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
     }
 }
 
-+ (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error
+- (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error
 {
     return [self removeCredentialsForKey:kDefaultCredentialsKey error:error];
+}
+
+#pragma mark - Class Methods
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+    {
+        _gBMCredentialsManager = [[BMCredentialsManager alloc] init];
+    });
+    return (BMCredentialsManager *)_gBMCredentialsManager;
 }
 
 @end

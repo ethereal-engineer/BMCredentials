@@ -7,11 +7,107 @@
 
 #import <Security/Security.h>
 
+@class BMCredentials;
+
 /**
  *  Error domain for any errors. Note that error codes are simply Security framework errors
  *  that have been passed through.
  */
 extern NSString *const BMCredentialsErrorDomain;
+
+@protocol BMCredentialsManagerClassMethods <NSObject>
+
+/**
+ *  @name Class Methods
+ */
+
+/**
+ *  @name Keyed Credentials
+ */
+
+/**
+ *  Returns the credentials for the given key or nil if they don't exist.
+ *
+ *  If the method returns nil, the `error`
+ *  parameter will be populated.
+ *
+ *  @param key   A unique key for the desired credentials set
+ *  @param error A pointer to an error in cases of non-success
+ *
+ *  @return An instance of `BMCredentials` or nil
+ */
++ (instancetype)credentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -credentialsForKey:error: instead.")));
+/**
+ *  Stores the values from the given credentials object into the keychain with the given key.
+ *
+ *  @param credentials A pre-populated `BMCredentials` object
+ *  @param key         A unique key for the desired credentials set
+ *  @param error       A pointer to an error in cases of non-success
+ *
+ *  @return YES on success, NO on error (will return error)
+ */
++ (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -setCredentials:forKey:error: instead.")));
+/**
+ *  Removes credentials for the given key from the keychain.
+ *
+ *  If no such credentials exist, this is still considered successful.
+ *
+ *  @param key   A unique key for the desired credentials set
+ *  @param error A pointer to an error in cases of non-success
+ *
+ *  @return YES on removal of credentials matching the key or on non-existence of such credentials, NO on error (will return error)
+ */
++ (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -removeCredentialsForKey:error: instead.")));
+/**
+ *  Returns the default credentials or nil if they don't exist.
+ *
+ *  If the method returns nil, the `error`
+ *  parameter will be populated.
+ *
+ *  @param error A pointer to an error in cases of non-success
+ *
+ *  @return An instance of `BMCredentials` or nil
+ */
+
+/**
+ *  @name Default Credentials
+ */
+
++ (instancetype)defaultCredentials:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -defaultCredentials:error: instead.")));
+/**
+ *  Stores the values from the given credentials object into the keychain as the default credentials.
+ *
+ *  @param credentials A pre-populated `BMCredentials` object
+ *  @param error       A pointer to an error in cases of non-success
+ *
+ *  @return YES on success, NO on error (will return error)
+ */
++ (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -setDefaultCredentials:error: instead.")));
+/**
+ *  Removes the default credentials from the keychain.
+ *
+ *  If no such credentials exist, this is still considered successful.
+ *
+ *  @param error A pointer to an error in cases of non-success
+ *
+ *  @return YES on removal of credentials matching the key or on non-existence of such credentials, NO on error (will return error)
+ */
++ (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -removeDefaultCredentials:error: instead.")));
+
+/**
+ *  @name Remove All
+ */
+
+/**
+ *  Removes all items related to BMCredentials from the keychain
+ *
+ *  @param error A pointer to an error in cases of non-success
+ *
+ *  @return YES on removal of all credentials or on non-existence of such credentials, NO on error (will return error)
+ */
++ (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error __attribute__((deprecated("Please use BMCredentialsManager's -removeAllCredentials:error: instead.")));
+
+@end
 
 /**
  *  BMCredentials is a simple username, password and url (i.e. credentials) wrapper around the
@@ -20,7 +116,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *  currently support iCloud Keychain sync.
  */
 
-@interface BMCredentials : NSObject
+@interface BMCredentials : NSObject <BMCredentialsManagerClassMethods>
 
 /**
  *  @name Properties
@@ -47,16 +143,21 @@ extern NSString *const BMCredentialsErrorDomain;
  */
 @property (nonatomic, assign) BOOL enableBackgroundAccess;
 
+@end
+
 /**
- *  @name Class Methods
+ *  BMCredentialsManager is a more dependancy-injection friendly way (recommended) of using BMCredentials in your app. By
+ *  using a credentials manager object as a dependancy, you can easily mock it out for unit tests.
  */
+
+@interface BMCredentialsManager : NSObject
 
 /**
  *  @name Keyed Credentials
  */
 
 /**
- *  Returns the credentials for the given key or nil if they don't exist. 
+ *  Returns the credentials for the given key or nil if they don't exist.
  *
  *  If the method returns nil, the `error`
  *  parameter will be populated.
@@ -66,7 +167,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return An instance of `BMCredentials` or nil
  */
-+ (instancetype)credentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error;
+- (BMCredentials *)credentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error;
 /**
  *  Stores the values from the given credentials object into the keychain with the given key.
  *
@@ -76,7 +177,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return YES on success, NO on error (will return error)
  */
-+ (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error;
+- (BOOL)setCredentials:(BMCredentials *)credentials forKey:(NSString *)key error:(NSError * __autoreleasing *)error;
 /**
  *  Removes credentials for the given key from the keychain.
  *
@@ -87,7 +188,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return YES on removal of credentials matching the key or on non-existence of such credentials, NO on error (will return error)
  */
-+ (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error;
+- (BOOL)removeCredentialsForKey:(NSString *)key error:(NSError * __autoreleasing *)error;
 /**
  *  Returns the default credentials or nil if they don't exist.
  *
@@ -103,7 +204,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *  @name Default Credentials
  */
 
-+ (instancetype)defaultCredentials:(NSError * __autoreleasing *)error;
+- (BMCredentials *)defaultCredentials:(NSError * __autoreleasing *)error;
 /**
  *  Stores the values from the given credentials object into the keychain as the default credentials.
  *
@@ -112,7 +213,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return YES on success, NO on error (will return error)
  */
-+ (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error;
+- (BOOL)setDefaultCredentials:(BMCredentials *)credentials error:(NSError * __autoreleasing *)error;
 /**
  *  Removes the default credentials from the keychain.
  *
@@ -122,7 +223,7 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return YES on removal of credentials matching the key or on non-existence of such credentials, NO on error (will return error)
  */
-+ (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error;
+- (BOOL)removeDefaultCredentials:(NSError * __autoreleasing *)error;
 
 /**
  *  @name Remove All
@@ -135,6 +236,17 @@ extern NSString *const BMCredentialsErrorDomain;
  *
  *  @return YES on removal of all credentials or on non-existence of such credentials, NO on error (will return error)
  */
-+ (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error;
+- (BOOL)removeAllCredentials:(NSError * __autoreleasing *)error;
+
+/**
+ *  @name Shared Instance (for backwards compatibility, mainly)
+ */
+
+/**
+ *  Shared Instance
+ *
+ *  @return shared instance of the credentials manager
+ */
++ (instancetype)sharedInstance;
 
 @end
