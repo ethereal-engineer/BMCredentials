@@ -243,6 +243,12 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
         self.username = itemInfo[(__bridge id)kSecAttrAccount];
         self.password = [[NSString alloc] initWithData:itemInfo[(__bridge id)kSecValueData]
                                               encoding:NSUTF8StringEncoding];
+      
+        if (outTypeRef != NULL)
+        {
+          CFRelease(outTypeRef);
+        }
+      
         return YES;
     }
     else
@@ -252,6 +258,12 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
         {
             *error = [NSError errorWithDomain:BMCredentialsErrorDomain code:status userInfo:nil];
         }
+      
+        if (outTypeRef != NULL)
+        {
+          CFRelease(outTypeRef);
+        }
+      
         return NO;
     }
 }
