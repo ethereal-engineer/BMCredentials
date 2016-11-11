@@ -203,7 +203,7 @@ static NSString *const kBMCredentialsTag = @"com.bionicmonocle.credentials.item"
       (__bridge id)kSecAttrSynchronizable   : (__bridge id)kSecAttrSynchronizableAny
       };
     
-    CFTypeRef outTypeRef;
+    CFTypeRef outTypeRef = NULL;
     
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &outTypeRef);
     
